@@ -31,7 +31,7 @@ export default function App() {
         <motion.div
           initial={{ y: -240, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 3.2, ease: "easeOut" }}
+          transition={{ duration: 3, ease: "easeOut" }}
         >
           <img className="w-[5.7rem] mr-3" src={drop} alt="" />
         </motion.div>
