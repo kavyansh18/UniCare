@@ -1,10 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import App from "./App";
+import Donors from "./Pages/Donors";
+import Register from "./Pages/Register";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/donors" element={<Donors />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      
+    </Router>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
