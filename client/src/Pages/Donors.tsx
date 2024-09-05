@@ -162,13 +162,21 @@ const Donors: React.FC = () => {
 
   const bloodGroups = ["All", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
 
-  const filteredDonors = selectedBloodGroup
+  const filteredDonors = (selectedBloodGroup
     ? donors.filter(
         (donor) =>
           donor.bloodGroup === selectedBloodGroup ||
           selectedBloodGroup === "All"
       )
-    : donors;
+    : donors
+  ).sort((a, b) => {
+    // Sort by high availability first, then medium availability
+    if (a.availability.high && !b.availability.high) return -1;
+    if (!a.availability.high && b.availability.high) return 1;
+    if (a.availability.medium && !b.availability.medium) return -1;
+    if (!a.availability.medium && b.availability.medium) return 1;
+    return 0;
+  });
 
   return (
     <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
