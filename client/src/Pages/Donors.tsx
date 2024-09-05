@@ -157,10 +157,10 @@ const Donors: React.FC = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-red-200 to-orange-200 h-full">
+    <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
       <Navbar />
       <motion.div
-        className="p-10 grid grid-cols-4 gap-6 h-screen"
+        className="p-10 grid lg:grid-cols-4 grid-cols-1 gap-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
