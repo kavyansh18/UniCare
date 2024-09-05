@@ -34,10 +34,10 @@ export default function App() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 3, ease: "easeOut" }}
         >
-          <img className="w-[5.7rem] mr-3" src={drop} alt="" />
+          <img className="lg:w-[5.7rem] w-[3.4rem] mr-3" src={drop} alt="" />
         </motion.div>
         <motion.div
-          className="text-neutral-600 dark:text-neutral-200 text-9xl font-semibold "
+          className="text-neutral-600 dark:text-neutral-200 lg:text-9xl text-6xl font-semibold "
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -48,7 +48,7 @@ export default function App() {
 
       {/* Animated Subheading */}
       <motion.h2
-        className="text-neutral-600 dark:text-neutral-200 text-[2.7rem] mt-2"
+        className="text-neutral-600 dark:text-neutral-200 lg:text-[2.7rem] text-2xl lg:mt-2 mt-4"
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -74,7 +74,7 @@ export default function App() {
       >
         <NavLink to="donors">
         <button
-          className="font-sans flex justify-center gap-2 items-center mx-auto shadow-xl text-lg text-gray-50 bg-red-600 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-gray-50 hover:text-slate-600 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+          className="font-sans flex justify-center gap-2 items-center mx-auto shadow-xl text-lg text-gray-50 bg-red-600 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-gray-50 hover:text-slate-600 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group lg:scale-100 scale-[0.9]"
           type="submit"
         >
           Find a donor
@@ -93,7 +93,7 @@ export default function App() {
 
         <NavLink to="register">
         <button
-          className="font-sans flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-red-600 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+          className="font-sans flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-red-600 hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group lg:scale-100 scale-[0.8]"
           type="submit"
         >
           Register as a donor

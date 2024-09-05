@@ -7,7 +7,7 @@ interface Donor {
   bloodGroup: string;
   contact: string;
   age: number;
-  availability: { home: boolean; medium: boolean };
+  availability: { high: boolean; medium: boolean };
 }
 
 const cardVariants = {
@@ -63,13 +63,13 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
           <div className="flex justify-between items-center">
             <div className="font-semibold">Availability:</div>
             <div className="flex justify-center items-center">
-              {availability.home && (
-                <div className="bg-green-500 px-[8px] text-sm rounded-l-lg">
+              {availability.high && (
+                <div className="bg-green-500 px-[9px] py-1 text-sm rounded-full">
                   H
                 </div>
               )}
               {availability.medium && (
-                <div className="bg-yellow-300 px-[8px] text-sm rounded-r-lg">
+                <div className="bg-yellow-300 px-[9px] py-1 text-sm rounded-full">
                   M
                 </div>
               )}
@@ -88,72 +88,72 @@ const Donors: React.FC = () => {
       bloodGroup: "O+",
       contact: "8851120943",
       age: 19,
-      availability: { home: true, medium: true },
+      availability: { high: true, medium: false },
     },
     {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: true, medium: false },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: true, medium: false },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: true, medium: false },
       },
       {
         name: "Kavyansh",
         bloodGroup: "O+",
         contact: "8851120943",
         age: 19,
-        availability: { home: true, medium: true },
+        availability: { high: false, medium: true },
       },
-      
+
   ];
 
   return (
