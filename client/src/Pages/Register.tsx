@@ -57,7 +57,7 @@ const Register: React.FC = () => {
   return (
     <div className="bg-gradient-to-b from-red-100 to-orange-200 ">
       <NavbarDL />
-      <div className="flex justify-center items-center h-screen pb-16">
+      <div className="flex justify-center h-screen items-start mt-8 lg:mt-12 lg:scale-100 scale-90">
         <motion.div
           className="container"
           initial={{ opacity: 0, y: -45 }}
