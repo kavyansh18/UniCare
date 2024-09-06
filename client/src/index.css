@@ -11,7 +11,7 @@
     rgb(244, 247, 251) 100%
   );
   border-radius: 40px;
-  padding: 25px 35px;
+  padding: 15px 35px;
   border: 5px solid rgb(255, 255, 255);
   box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
   margin: 20px;
@@ -22,10 +22,6 @@
   font-weight: 900;
   font-size: 30px;
   color: rgb(197, 59, 59);
-}
-
-.form {
-  margin-top: 20px;
 }
 
 .form .input {
@@ -322,3 +318,4 @@
   .register-btn:hover::before {
     box-shadow: inset 0 0 0 10em rgb(255, 0, 0);
   }
+  
