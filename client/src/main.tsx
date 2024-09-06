@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App";
 import Donors from "./Pages/Donors";
 import Register from "./Pages/Register";
+import UpdateInfo from "./Pages/UpdateInfo";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
           <Route path="/" element={<App />} />
           <Route path="/donors" element={<Donors />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/updateInfo" element={<UpdateInfo />} />
         </Routes>
       
     </Router>

@@ -15,6 +15,15 @@ const NavbarDL = () => {
 
       <div className="lg:text-4xl text-lg font-bold text-slate-700 lg:ml-0 ml-5">Register as a donor</div>
 
+      <div className="flex lg:flex-row flex-col justify-center items-center lg:gap-2 gap-0">
+      <div>
+        <NavLink to="/updateInfo">
+        <button className="register-btn lg:scale-100 scale-[0.65]">
+          <span>Update ur info</span>
+        </button>
+        </NavLink>
+      </div>
+
       <div>
         <NavLink to="/donors">
         <button className="register-btn lg:scale-100 scale-[0.65]">
@@ -22,6 +31,8 @@ const NavbarDL = () => {
         </button>
         </NavLink>
       </div>
+      </div>
+      
     </div>
   );
 };
