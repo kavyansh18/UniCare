@@ -13,7 +13,7 @@ const NavbarDL = () => {
       </div>
       </NavLink>
 
-      <div className="lg:text-4xl text-lg font-bold text-slate-700 lg:ml-0 ml-5">Register as a donor</div>
+      <div className="lg:text-4xl text-lg font-bold text-slate-700 lg:ml-32 ml-5">Register as a donor</div>
 
       <div className="flex lg:flex-row flex-col justify-center items-center lg:gap-2 gap-0">
       <div>

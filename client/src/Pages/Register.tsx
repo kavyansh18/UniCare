@@ -232,8 +232,8 @@ const Register: React.FC = () => {
                       <input
                         type="checkbox"
                         id="checkbox-medium"
-                        checked={availability === "medium"}
-                        onChange={() => handleCheckboxChange("medium")}
+                        checked={availability === "low"}
+                        onChange={() => handleCheckboxChange("low")}
                       />
                       <label htmlFor="checkbox-medium"></label>
                       <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
@@ -241,7 +241,7 @@ const Register: React.FC = () => {
                       </svg>
                     </div>
                     <label htmlFor="checkbox-medium" className="ml-2">
-                      Medium
+                      Low
                     </label>
                   </div>
                 </div>
