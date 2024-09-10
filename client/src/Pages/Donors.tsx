@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Components/NavbarDL";
 import { IoCopy } from "react-icons/io5";
 
 interface Donor {
+  id: number;
   name: string;
-  bloodGroup: string;
-  contact: string;
+  blood_group: string;
+  mobile: string;
   age: number;
-  availability: { high: boolean; medium: boolean };
+  availability: 'high' | 'low'; // Ensuring alignment with backend data
 }
 
 const cardVariants = {
@@ -25,14 +26,14 @@ const cardVariants = {
 
 const DonorCard: React.FC<Donor & { index: number }> = ({
   name,
-  bloodGroup,
-  contact,
+  blood_group,
+  mobile,
   age,
   availability,
   index,
 }) => {
   const handleCopy = () => {
-    navigator.clipboard.writeText(contact);
+    navigator.clipboard.writeText(mobile);
     alert("Contact number copied to clipboard!");
   };
 
@@ -44,8 +45,9 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
       animate="visible"
       custom={index}
     >
-      <div className="card2 w-[18rem] px-6 py-4">
+      <div className="card2 w-[18rem] px-6 py-4 bg-white shadow-md rounded-lg">
         <div className="flex flex-col gap-2">
+          {/* Donor Details */}
           <div className="flex justify-between items-center">
             <div className="font-semibold">Name:</div>
             <div className="text-red-600 font-semibold">{name}</div>
@@ -53,7 +55,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 
           <div className="flex justify-between items-center">
             <div className="font-semibold">Blood Group:</div>
-            <div className="text-red-600 font-semibold">{bloodGroup}</div>
+            <div className="text-red-600 font-semibold">{blood_group}</div>
           </div>
 
           <div className="flex justify-between items-center">
@@ -66,7 +68,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
               >
                 <IoCopy />
               </button>
-              <div className="text-red-600 font-semibold">{contact}</div>
+              <div className="text-red-600 font-semibold">{mobile}</div>
             </div>
           </div>
 
@@ -78,15 +80,11 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
           <div className="flex justify-between items-center">
             <div className="font-semibold">Availability:</div>
             <div className="flex justify-center items-center">
-              {availability.high && (
-                <div className="bg-green-500 px-[9px] py-1 text-sm rounded-full">
-                  H
-                </div>
+              {availability === "high" && (
+                <div className="bg-green-500 px-[9px] py-1 text-sm rounded-full text-white">H</div>
               )}
-              {availability.medium && (
-                <div className="bg-yellow-300 px-[9px] py-1 text-sm rounded-full">
-                  M
-                </div>
+              {availability === "low" && (
+                <div className="bg-yellow-300 px-[9px] py-1 text-sm rounded-full">M</div>
               )}
             </div>
           </div>
@@ -97,78 +95,43 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 };
 
 const Donors: React.FC = () => {
-  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(
-    null
-  );
+  const [donors, setDonors] = useState<Donor[]>([]);
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(null);
 
-  const donors: Donor[] = [
-    {
-      name: "Kavyansh",
-      bloodGroup: "O+",
-      contact: "8851120943",
-      age: 19,
-      availability: { high: true, medium: false },
-    },
-    {
-      name: "Aarav",
-      bloodGroup: "A+",
-      contact: "8851120944",
-      age: 21,
-      availability: { high: false, medium: true },
-    },
-    {
-      name: "Isha",
-      bloodGroup: "B-",
-      contact: "8851120945",
-      age: 23,
-      availability: { high: false, medium: true },
-    },
-    {
-      name: "Rohit",
-      bloodGroup: "AB+",
-      contact: "8851120946",
-      age: 22,
-      availability: { high: true, medium: false },
-    },
-    {
-      name: "Nisha",
-      bloodGroup: "O-",
-      contact: "8851120947",
-      age: 24,
-      availability: { high: false, medium: true },
-    },
-    {
-      name: "Sanjana",
-      bloodGroup: "A-",
-      contact: "8851120948",
-      age: 26,
-      availability: { high: false, medium: true },
-    },
-    {
-      name: "Ravi",
-      bloodGroup: "B+",
-      contact: "8851120949",
-      age: 20,
-      availability: { high: true, medium: false },
-    },
-    {
-      name: "Kritika",
-      bloodGroup: "AB+",
-      contact: "8851120950",
-      age: 25,
-      availability: { high: true, medium: false },
-    },
-  ];
+  useEffect(() => {
+    const fetchDonors = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/donors"); // Adjust based on actual API endpoint
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data: Donor[] = await response.json();
+        setDonors(data);
+      } catch (error) {
+        console.error("Error fetching donors:", error);
+      }
+    };
+
+    fetchDonors();
+  }, []);
 
   const bloodGroups = ["All", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
 
   const filteredDonors = selectedBloodGroup
     ? donors.filter(
         (donor) =>
-          donor.bloodGroup === selectedBloodGroup ||
+          donor.blood_group === selectedBloodGroup ||
           selectedBloodGroup === "All"
       )
     : donors;
+
+  // Sort donors by availability (high -> medium) and then alphabetically by name
+  const sortedDonors = filteredDonors.sort((a, b) => {
+    if (a.availability === b.availability) {
+      return a.name.localeCompare(b.name); // Sort alphabetically if availability is the same
+    }
+    return a.availability === 'high' ? -1 : 1; // Sort by availability: high first, then medium
+  });
 
   return (
     <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
@@ -191,7 +154,7 @@ const Donors: React.FC = () => {
       </div>
 
       <div className="px-10 py-2">
-        {filteredDonors.length === 0 ? (
+        {sortedDonors.length === 0 ? (
           <div className="text-red-500 text-center font-semibold text-2xl mt-20">
             No donor found for the selected blood group
           </div>
@@ -202,8 +165,8 @@ const Donors: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            {filteredDonors.map((donor, index) => (
-              <DonorCard key={index} index={index} {...donor} />
+            {sortedDonors.map((donor, index) => (
+              <DonorCard key={donor.id} index={index} {...donor} />
             ))}
           </motion.div>
         )}
