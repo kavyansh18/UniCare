@@ -80,11 +80,21 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
           <div className="flex justify-between items-center">
             <div className="font-semibold">Availability:</div>
             <div className="flex justify-center items-center">
-              {availability === "high" && (
-                <div className="bg-green-500 px-[9px] py-1 text-sm rounded-full text-white">H</div>
+            {availability === "high" && (
+                <div className="relative group bg-green-500 px-[9px] py-1 text-sm rounded-full text-white cursor-pointer">
+                  <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-70 text-white text-xs rounded-2xl p-1 transition-opacity duration-300 -translate-x-12 px-[22px] pointer-events-none group-hover:pointer-events-auto">
+                    High
+                  </span>
+                  H
+                </div>
               )}
               {availability === "low" && (
-                <div className="bg-yellow-300 px-[9px] py-1 text-sm rounded-full">M</div>
+                <div className="relative group bg-green-500 px-[9px] py-1 text-sm rounded-full text-white cursor-pointer">
+                  <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-70 text-white text-xs rounded-2xl p-1 transition-opacity duration-300 -translate-x-12 px-[22px] pointer-events-none group-hover:pointer-events-auto">
+                    Medium
+                  </span>
+                  M
+                </div>
               )}
             </div>
           </div>
