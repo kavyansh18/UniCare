@@ -145,7 +145,7 @@ const Donors: React.FC = () => {
       localStorage.setItem("isLoggedIn", "true");
       fetchDonors(); // Refetch donors on login
     } else {
-      swal("Error", "Invalid username or password", "error"); // Use swal for error handling
+      swal("Error", "Invalid username or password", "error"); 
     }
   };
 

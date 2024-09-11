@@ -6,7 +6,7 @@ import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oau
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
-  const [availability, setAvailability] = useState<string[]>([]);
+  const [availability, setAvailability] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
   const [bloodGroup, setBloodGroup] = useState("");
@@ -30,7 +30,7 @@ const Register: React.FC = () => {
   }, []);
 
   const handleCheckboxChange = (value: string) => {
-    setAvailability([value]); // Set the availability to only the selected value
+    setAvailability(value); 
   };
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +55,7 @@ const Register: React.FC = () => {
       mobile: phone,
       age: parseInt(age, 10),
       blood_group: bloodGroup,
-      availability: availability.join(", "), // Convert array to string
+      availability, 
       email: userEmail
     };
     console.log('Form Data:', donorData);
@@ -91,7 +91,7 @@ const Register: React.FC = () => {
         console.log(result.donor);
   
         setName("");
-        setAvailability([]);
+        setAvailability("");
         setAge("");
         setPhone("");
         setBloodGroup("");
@@ -220,7 +220,7 @@ const Register: React.FC = () => {
                       <input
                         type="checkbox"
                         id="checkbox-high"
-                        checked={availability.includes("high")}
+                        checked={availability === "high"}
                         onChange={() => handleCheckboxChange("high")}
                       />
                       <label htmlFor="checkbox-high"></label>
@@ -237,7 +237,7 @@ const Register: React.FC = () => {
                       <input
                         type="checkbox"
                         id="checkbox-medium"
-                        checked={availability.includes("low")}
+                        checked={availability === "low"}
                         onChange={() => handleCheckboxChange("low")}
                       />
                       <label htmlFor="checkbox-medium"></label>
