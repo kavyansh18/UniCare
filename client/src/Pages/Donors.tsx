@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import swal from "sweetalert"; // Import SweetAlert
+import swal from "sweetalert";
 import Navbar from "../Components/NavbarDL";
 import { IoCopy } from "react-icons/io5";
 
@@ -35,7 +35,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(mobile);
-    swal("Copied!", "Contact number copied to clipboard!", "success"); // Use swal for success message
+    swal("Copied!", "Contact number copied to clipboard!", "success");
   };
 
   return (
@@ -125,7 +125,7 @@ const Donors: React.FC = () => {
 
   const fetchDonors = async () => {
     try {
-      const response = await fetch("http://localhost:3000/donors"); // Adjust based on actual API endpoint
+      const response = await fetch("http://localhost:3000/donors"); 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -133,7 +133,7 @@ const Donors: React.FC = () => {
       setDonors(data);
       localStorage.setItem("totalDonors", data.length.toString());
     } catch (error) {
-      swal("Error", "Error fetching donors. Please try again later.", "error"); // Use swal for error handling
+      swal("Error", "Error fetching donors. Please try again later.", "error"); 
       console.error("Error fetching donors:", error);
     }
   };

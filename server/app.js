@@ -14,7 +14,7 @@ const corsOptions = {
 };
 
 // Middleware
-app.use(cors(corsOptions)); // Use CORS with options
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // PostgreSQL Pool Setup
