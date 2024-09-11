@@ -1,14 +1,12 @@
-import "../index.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import swal from "sweetalert";
 import NavbarDL from "../Components/NavbaarRD";
 import { motion } from "framer-motion";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import axios from "axios"; // Import axios
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
-  const [availability, setAvailability] = useState("");
+  const [availability, setAvailability] = useState<string[]>([]);
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
   const [bloodGroup, setBloodGroup] = useState("");
@@ -16,7 +14,6 @@ const Register: React.FC = () => {
   const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    // Check if the user is already authenticated
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("google-auth-token");
       if (token) {
@@ -33,7 +30,7 @@ const Register: React.FC = () => {
   }, []);
 
   const handleCheckboxChange = (value: string) => {
-    setAvailability(value);
+    setAvailability([value]); // Set the availability to only the selected value
   };
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,55 +47,63 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (!name || !bloodGroup || !age || !phone || !availability) {
-      swal("Oops!", "Please fill in all fields.", "warning");
-      return;
-    }
-
-    if (age === "" || isNaN(Number(age)) || Number(age) <= 0) {
-      swal("Invalid Age", "Please enter a valid positive integer for age.", "error");
-      return;
-    }
-
-    if (phone.length !== 10) {
-      swal("Invalid Phone Number", "Please enter a valid 10-digit phone number.", "error");
-      return;
-    }
-
+  
+    const donorData = {
+      name,
+      mobile: phone,
+      age: parseInt(age, 10),
+      blood_group: bloodGroup,
+      availability: availability.join(", "), // Convert array to string
+      email: userEmail
+    };
+    console.log('Form Data:', donorData);
+  
     try {
-      // Send a POST request to the backend to register a new donor
-      const response = await axios.post("http://localhost:3000/donor/register", {
-        name,
-        mobile: phone,
-        age: Number(age),
-        blood_group: bloodGroup,
-        availability,
+      const response = await fetch('http://localhost:3000/donor/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(donorData)
       });
-
-      if (response.status === 201) {
-        swal("Success!", "You have successfully registered.", "success");
-        setName("");
-        setPhone("");
-        setAge("");
-        setBloodGroup("");
-        setAvailability("");
-      }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 409) {
-          swal("Error", "Mobile number already registered", "error");
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+  
+        if (response.status === 400) {
+          swal("Error", `Error: ${errorData.error}`, "error");
+        } else if (response.status === 409) {
+          if (errorData.error.includes('Mobile number already registered')) {
+            swal("Conflict", "The mobile number you entered is already registered.", "warning");
+          } else if (errorData.error.includes('Email already registered')) {
+            swal("Conflict", "The email address you entered is already registered.", "warning");
+          } else {
+            swal("Conflict", "The provided data conflicts with existing records.", "warning");
+          }
         } else {
-          swal("Error", "Something went wrong. Please try again later.", "error");
+          swal("Conflict", "The email address you entered is already registered.", "error");
         }
       } else {
-        swal("Error", "An unexpected error occurred.", "error");
+        const result = await response.json();
+        swal("Success", "Donor registered successfully!", "success");
+        console.log(result.donor);
+  
+        setName("");
+        setAvailability([]);
+        setAge("");
+        setPhone("");
+        setBloodGroup("");
+        setUserEmail("");
+        setShowForm(false); 
       }
+    } catch (error) {
+      console.error('Error:', error);
+      swal("Unexpected Error", "An unexpected error occurred. Please try again later.", "error");
     }
   };
-
+  
   const handleGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       localStorage.setItem("google-auth-token", credentialResponse.credential);
@@ -122,7 +127,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-red-100 to-orange-200 ">
+    <div className="bg-gradient-to-b from-red-100 to-orange-200">
       <NavbarDL />
       <div className="flex justify-center h-screen items-start lg:scale-100 scale-90">
         {!showForm ? (
@@ -207,7 +212,7 @@ const Register: React.FC = () => {
               />
               <div className="ml-3 mt-1">
                 <div className="availability-heading mb-2 font-semibold mt-4">
-                  Availability:
+                Willingness:
                 </div>
                 <div className="flex space-x-4">
                   <div className="checkbox-wrapper-12 flex items-center">
@@ -215,7 +220,7 @@ const Register: React.FC = () => {
                       <input
                         type="checkbox"
                         id="checkbox-high"
-                        checked={availability === "high"}
+                        checked={availability.includes("high")}
                         onChange={() => handleCheckboxChange("high")}
                       />
                       <label htmlFor="checkbox-high"></label>
@@ -232,7 +237,7 @@ const Register: React.FC = () => {
                       <input
                         type="checkbox"
                         id="checkbox-medium"
-                        checked={availability === "low"}
+                        checked={availability.includes("low")}
                         onChange={() => handleCheckboxChange("low")}
                       />
                       <label htmlFor="checkbox-medium"></label>
@@ -246,7 +251,7 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <input className="login-button" type="submit" value="Sign In" />
+              <input className="login-button" type="submit" value="Register" />
             </form>
           </motion.div>
         )}

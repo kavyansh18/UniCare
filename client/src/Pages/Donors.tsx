@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import swal from "sweetalert"; // Import SweetAlert
 import Navbar from "../Components/NavbarDL";
 import { IoCopy } from "react-icons/io5";
 
@@ -9,7 +10,7 @@ interface Donor {
   blood_group: string;
   mobile: string;
   age: number;
-  availability: 'high' | 'low'; // Ensuring alignment with backend data
+  availability: "high" | "low";
 }
 
 const cardVariants = {
@@ -34,7 +35,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(mobile);
-    alert("Contact number copied to clipboard!");
+    swal("Copied!", "Contact number copied to clipboard!", "success"); // Use swal for success message
   };
 
   return (
@@ -46,8 +47,8 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
       custom={index}
     >
       <div className="card2 w-[18rem] px-6 py-4 bg-white shadow-md rounded-lg">
+        {/* Donor Details */}
         <div className="flex flex-col gap-2">
-          {/* Donor Details */}
           <div className="flex justify-between items-center">
             <div className="font-semibold">Name:</div>
             <div className="text-red-600 font-semibold">{name}</div>
@@ -80,7 +81,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
           <div className="flex justify-between items-center">
             <div className="font-semibold">Availability:</div>
             <div className="flex justify-center items-center">
-            {availability === "high" && (
+              {availability === "high" && (
                 <div className="relative group bg-green-500 px-[9px] py-1 text-sm rounded-full text-white cursor-pointer">
                   <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-70 text-white text-xs rounded-2xl p-1 transition-opacity duration-300 -translate-x-12 px-[22px] pointer-events-none group-hover:pointer-events-auto">
                     High
@@ -106,24 +107,54 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 
 const Donors: React.FC = () => {
   const [donors, setDonors] = useState<Donor[]>([]);
-  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(null);
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(
+    null
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const adminUsername = import.meta.env.VITE_ADMIN_USERNAME;
+  const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
 
   useEffect(() => {
-    const fetchDonors = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/donors"); // Adjust based on actual API endpoint
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data: Donor[] = await response.json();
-        setDonors(data);
-      } catch (error) {
-        console.error("Error fetching donors:", error);
-      }
-    };
-
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedIn);
     fetchDonors();
   }, []);
+
+  const fetchDonors = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/donors"); // Adjust based on actual API endpoint
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data: Donor[] = await response.json();
+      setDonors(data);
+      localStorage.setItem("totalDonors", data.length.toString());
+    } catch (error) {
+      swal("Error", "Error fetching donors. Please try again later.", "error"); // Use swal for error handling
+      console.error("Error fetching donors:", error);
+    }
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (username === adminUsername && password === adminPassword) {
+      setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
+      fetchDonors(); // Refetch donors on login
+    } else {
+      swal("Error", "Invalid username or password", "error"); // Use swal for error handling
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+    setUsername("");
+    setPassword("");
+  };
 
   const bloodGroups = ["All", "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
 
@@ -135,52 +166,101 @@ const Donors: React.FC = () => {
       )
     : donors;
 
-  // Sort donors by availability (high -> medium) and then alphabetically by name
   const sortedDonors = filteredDonors.sort((a, b) => {
     if (a.availability === b.availability) {
-      return a.name.localeCompare(b.name); // Sort alphabetically if availability is the same
+      return a.name.localeCompare(b.name);
     }
-    return a.availability === 'high' ? -1 : 1; // Sort by availability: high first, then medium
+    return a.availability === "high" ? -1 : 1;
   });
 
   return (
     <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
       <Navbar />
-
-      <div className="p-4 flex justify-center lg:gap-3 gap-2 flex-wrap">
-        {bloodGroups.map((group) => (
-          <button
-            key={group}
-            onClick={() => setSelectedBloodGroup(group === "All" ? null : group)}
-            className={`px-4 py-2 rounded-full font-semibold ${
-              selectedBloodGroup === group || (!selectedBloodGroup && group === "All")
-                ? "bg-red-600 text-white"
-                : "bg-white text-red-600 border border-red-600"
-            }`}
+      {!isLoggedIn ? (
+        <div className="flex flex-col items-center justify-start mt-20 h-screen">
+          <h2 className="text-3xl mb-6">
+            We have{" "}
+            <span className="text-red-600 font-semibold">
+              {localStorage.getItem("totalDonors") || 0}
+            </span>{" "}
+            heroes ready to help!
+          </h2>
+          <form
+            onSubmit={handleLogin}
+            className="bg-white p-8 rounded-lg shadow-md w-[400px] glass"
           >
-            {group}
-          </button>
-        ))}
-      </div>
-
-      <div className="px-10 py-2">
-        {sortedDonors.length === 0 ? (
-          <div className="text-red-500 text-center font-semibold text-2xl mt-20">
-            No donor found for the selected blood group
+            <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-2 mb-5 border rounded-lg glass"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 mb-5 border rounded-lg glass"
+              required
+            />
+            <button
+              type="submit"
+              className="w-full bg-red-600 text-white py-2 rounded-lg"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      ) : (
+        <>
+          <div className="flex justify-center items-center px-4">
+            <div className="p-4 flex justify-center lg:gap-3 gap-2 flex-wrap">
+              {bloodGroups.map((group) => (
+                <button
+                  key={group}
+                  onClick={() =>
+                    setSelectedBloodGroup(group === "All" ? null : group)
+                  }
+                  className={`px-4 py-2 rounded-full font-semibold ${
+                    selectedBloodGroup === group ||
+                    (selectedBloodGroup === null && group === "All")
+                      ? "bg-red-600 text-white"
+                      : "bg-white"
+                  }`}
+                >
+                  {group}
+                </button>
+              ))}
+            </div>
           </div>
-        ) : (
-          <motion.div
-            className="grid lg:grid-cols-4 grid-cols-1 gap-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+
+          <div className="relative min-h-screen">
+            {sortedDonors.length ? (
+              <div className="p-4 grid gap-6 lg:grid-cols-4">
+                {sortedDonors.map((donor, index) => (
+                  <DonorCard key={donor.id} {...donor} index={index} />
+                ))}
+              </div>
+            ) : (
+              <div className="absolute inset-0 flex justify-center items-start mt-12">
+                <p className="text-center text-gray-600 text-4xl">
+                  No donors available.
+                </p>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed right-8 top-20"
           >
-            {sortedDonors.map((donor, index) => (
-              <DonorCard key={donor.id} index={index} {...donor} />
-            ))}
-          </motion.div>
-        )}
-      </div>
+            Logout
+          </button>
+        </>
+      )}
     </div>
   );
 };

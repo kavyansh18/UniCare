@@ -33,9 +33,9 @@ app.get('/', (req, res) => {
 
 // Register a New Donor
 app.post('/donor/register', async (req, res) => {
-  const { name, mobile, age, blood_group, availability } = req.body;
+  const { name, mobile, age, blood_group, availability, email } = req.body;
 
-  if (!name || !mobile || !age || !blood_group || !availability) {
+  if (!name || !mobile || !age || !blood_group || !availability || !email) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -44,7 +44,8 @@ app.post('/donor/register', async (req, res) => {
     typeof mobile !== 'string' ||
     typeof age !== 'number' ||
     typeof blood_group !== 'string' ||
-    typeof availability !== 'string'
+    typeof availability !== 'string' ||
+    typeof email !== 'string'
   ) {
     return res.status(400).json({ error: 'Invalid data types' });
   }
@@ -61,10 +62,10 @@ app.post('/donor/register', async (req, res) => {
 
   try {
     const query = `
-      INSERT INTO donors (name, mobile, age, blood_group, availability)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO donors (name, mobile, age, blood_group, availability, mailID)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *`;
-    const values = [name, mobile, age, blood_group.toUpperCase(), availability.toLowerCase()];
+    const values = [name, mobile, age, blood_group.toUpperCase(), availability.toLowerCase(), email];
     const result = await pool.query(query, values);
 
     res.status(201).json({
@@ -75,12 +76,19 @@ app.post('/donor/register', async (req, res) => {
     console.error('Error inserting donor:', err);
 
     if (err.code === '23505') {
-      return res.status(409).json({ error: 'Mobile number already registered' });
+      if (err.detail.includes('mobile')) {
+        return res.status(409).json({ error: 'Mobile number already registered' });
+      }
+      if (err.detail.includes('mailID')) {
+        return res.status(409).json({ error: 'Email already registered' });
+      }
     }
 
     res.status(500).json({ error: 'Database error' });
   }
 });
+
+
 
 // Get All Donors
 app.get('/donors', async (req, res) => {

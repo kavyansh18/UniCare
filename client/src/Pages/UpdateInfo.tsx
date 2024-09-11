@@ -1,8 +1,8 @@
-
+import NavbarUI from "../Components/NavbarUI"
 const UpdateInfo = () => {
   return (
     <div>
-      update info
+      <NavbarUI />
     </div>
   )
 }
