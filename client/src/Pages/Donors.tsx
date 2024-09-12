@@ -255,7 +255,7 @@ const Donors: React.FC = () => {
 
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed right-8 top-20"
+            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed right-20 top-20"
           >
             Logout
           </button>

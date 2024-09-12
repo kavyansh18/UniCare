@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const corsOptions = {
-  origin: 'http://localhost:5174', 
+  origin: 'http://localhost:5173', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 };
@@ -101,27 +101,61 @@ app.get('/donors', async (req, res) => {
   }
 });
 
-// Get Donor by ID
-app.get('/donor/:id', async (req, res) => {
-  const { id } = req.params;
+app.get('/donor', async (req, res) => {
+  const { email } = req.query; // Extract email from query parameters
 
-  if (isNaN(parseInt(id))) {
-    return res.status(400).json({ error: 'Invalid donor ID' });
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
   }
 
   try {
-    const result = await pool.query('SELECT * FROM donors WHERE id = $1', [id]);
+    const query = `SELECT * FROM donors WHERE mailID = $1`; // Query to fetch donor by email
+    const values = [email];
+    const result = await pool.query(query, values);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Donor not found' });
     }
 
-    res.json(result.rows[0]);
+    res.json(result.rows[0]); // Return the donor data
   } catch (err) {
-    console.error('Error fetching donor:', err);
+    console.error('Error fetching donor by email:', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
+
+
+// Update Donor by Email
+app.put('/donor/update', async (req, res) => {
+  const { name, mobile, age, blood_group, availability, email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  try {
+    const query = `
+      UPDATE donors
+      SET name = $1, mobile = $2, age = $3, blood_group = $4, availability = $5
+      WHERE mailID = $6
+      RETURNING *`;
+    const values = [name, mobile, age, blood_group.toUpperCase(), availability.toLowerCase(), email];
+    const result = await pool.query(query, values);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Donor not found' });
+    }
+
+    res.json({
+      message: 'Donor information updated successfully',
+      donor: result.rows[0],
+    });
+  } catch (err) {
+    console.error('Error updating donor by email:', err);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 
 // Update Donor Availability by ID
 app.put('/donor/:id/availability', async (req, res) => {
