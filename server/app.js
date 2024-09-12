@@ -102,14 +102,14 @@ app.get('/donors', async (req, res) => {
 });
 
 app.get('/donor', async (req, res) => {
-  const { email } = req.query; // Extract email from query parameters
+  const { email } = req.query; 
 
   if (!email) {
     return res.status(400).json({ error: 'Email is required' });
   }
 
   try {
-    const query = `SELECT * FROM donors WHERE mailID = $1`; // Query to fetch donor by email
+    const query = `SELECT * FROM donors WHERE mailID = $1`;
     const values = [email];
     const result = await pool.query(query, values);
 
@@ -117,7 +117,7 @@ app.get('/donor', async (req, res) => {
       return res.status(404).json({ error: 'Donor not found' });
     }
 
-    res.json(result.rows[0]); // Return the donor data
+    res.json(result.rows[0]); 
   } catch (err) {
     console.error('Error fetching donor by email:', err);
     res.status(500).json({ error: 'Database error' });
@@ -156,68 +156,31 @@ app.put('/donor/update', async (req, res) => {
   }
 });
 
+app.delete('/donor', async (req, res) => {
+  const { email } = req.query; 
 
-// Update Donor Availability by ID
-app.put('/donor/:id/availability', async (req, res) => {
-  const { id } = req.params;
-  const { availability } = req.body;
-
-  if (isNaN(parseInt(id))) {
-    return res.status(400).json({ error: 'Invalid donor ID' });
-  }
-
-  const validAvailability = ['high', 'low'];
-  if (!availability || !validAvailability.includes(availability.toLowerCase())) {
-    return res.status(400).json({ error: "Availability must be either 'high' or 'low'" });
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
   }
 
   try {
-    const query = `
-      UPDATE donors
-      SET availability = $1
-      WHERE id = $2
-      RETURNING *`;
-    const values = [availability.toLowerCase(), id];
+    const query = `DELETE FROM donors WHERE mailID = $1 RETURNING *`;
+    const values = [email];
     const result = await pool.query(query, values);
 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Donor not found' });
-    }
-
-    res.json({
-      message: 'Availability updated successfully',
-      donor: result.rows[0],
-    });
-  } catch (err) {
-    console.error('Error updating availability:', err);
-    res.status(500).json({ error: 'Database error' });
-  }
-});
-
-// Delete Donor by ID
-app.delete('/donor/:id', async (req, res) => {
-  const { id } = req.params;
-
-  if (isNaN(parseInt(id))) {
-    return res.status(400).json({ error: 'Invalid donor ID' });
-  }
-
-  try {
-    const result = await pool.query('DELETE FROM donors WHERE id = $1 RETURNING *', [id]);
-
-    if (result.rows.length === 0) {
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Donor not found' });
     }
 
     res.json({
       message: 'Donor deleted successfully',
-      donor: result.rows[0],
     });
   } catch (err) {
-    console.error('Error deleting donor:', err);
+    console.error('Error deleting donor by email:', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
+
 
 // Start the Server
 app.listen(port, () => {

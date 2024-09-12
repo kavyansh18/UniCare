@@ -51,7 +51,7 @@ const UpdateInfo: React.FC = () => {
           setLoading(false);
         })
         .catch((err) => {
-          setError('Failed to fetch user data');
+          setError('User does not exist!');
           console.error('Error fetching user data:', err);
           setLoading(false);
         });
@@ -88,11 +88,10 @@ const UpdateInfo: React.FC = () => {
       });
       return;
     }
-  
-    // Include email in the userData object
+
     const updatedUserData = {
       ...userData,
-      email, // Make sure email is included here
+      email, 
     };
   
     setLoading(true);
@@ -114,6 +113,37 @@ const UpdateInfo: React.FC = () => {
         setLoading(false);
       });
   };  
+  
+  const handleDelete = () => {
+    Swal({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      buttons: ['Cancel', 'Yes, delete it!'],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        setLoading(true);
+        console.log(email)
+        axios
+          .delete(`http://localhost:3000/donor?email=${email}`) 
+          .then(() => {
+            Swal({
+              icon: 'success',
+              title: 'Deleted',
+              text: 'The donor has been deleted.',
+            });
+            setLoading(false);
+            handleLogout(); 
+          })
+          .catch((err) => {
+            setError('Failed to delete donor');
+            console.error('Error deleting donor:', err);
+            setLoading(false);
+          });
+      }
+    });
+  };
   
 
   // Handle phone number input
@@ -138,7 +168,7 @@ const UpdateInfo: React.FC = () => {
             ) : (
               <div className='glass p-8 w-[27rem]'>
                 <div className="flex items-center justify-center text-slate-600 ">
-                  <p className='text-lg mb-2'>{email}</p>
+                  <p className='text-xl'>{email}</p>
                   <button
                     className="ml-4 bg-red-500 text-white py-1 px-3 rounded-xl text-sm"
                     onClick={handleLogout}
@@ -219,12 +249,19 @@ const UpdateInfo: React.FC = () => {
                         >
                           Update
                         </button>
+                        <button
+                          type='button'
+                          className="w-full bg-red-700 text-white p-2 rounded-2xl"
+                          onClick={handleDelete}
+                        >
+                          Delete Account
+                        </button>
                       </form>
                     </div>
                   )
                 )}
 
-                {error && <p className='text-red-500'>{error}</p>}
+                {error && <p className='text-red-500 flex justify-center items-center mt-3 font-semibold'>{error}</p>}
               </div>
             )}
           </div>
