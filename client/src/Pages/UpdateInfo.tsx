@@ -32,6 +32,8 @@ const UpdateInfo: React.FC = () => {
   const handleLogout = () => {
     setEmail(null);
     localStorage.removeItem('userEmail');
+    setUserData(null);
+    setError(null);
   };
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const UpdateInfo: React.FC = () => {
           setError('User does not exist!');
           console.error('Error fetching user data:', err);
           setLoading(false);
+          setUserData(null);
         });
     }
   }, [email]);
@@ -166,11 +169,11 @@ const UpdateInfo: React.FC = () => {
                 onError={handleGoogleLoginError}
               />
             ) : (
-              <div className='glass p-8 w-[27rem]'>
-                <div className="flex items-center justify-center text-slate-600 ">
+              <div className='glass p-8 lg:w-[28rem] w-[21rem]'>
+                <div className="flex lg:flex-row flex-col lg:gap-3 gap-2 items-center justify-center text-slate-600 ">
                   <p className='text-xl'>{email}</p>
                   <button
-                    className="ml-4 bg-red-500 text-white py-1 px-3 rounded-xl text-sm"
+                    className="bg-red-500 text-white py-1 px-3 rounded-xl text-sm"
                     onClick={handleLogout}
                   >
                     Switch Account
@@ -182,7 +185,7 @@ const UpdateInfo: React.FC = () => {
                 ) : (
                   userData && (
                     <div>
-                      <h3 className='text-xl flex justify-center items-center mb-3 mt-1 font-semibold'>Edit Information</h3>
+                      <h3 className='text-2xl flex justify-center items-center mb-4 mt-4 font-semibold'>Edit Information</h3>
                       <form className="space-y-4">
                         <input
                           required
