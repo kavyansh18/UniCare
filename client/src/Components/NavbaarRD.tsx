@@ -12,7 +12,7 @@ const MenuIcon: React.FC = () => (
 );
 
 const CloseIcon: React.FC = () => (
-  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
@@ -54,7 +54,7 @@ const NavbarDL: React.FC = () => {
       {/* Small Screen Navbar */}
       <div className="lg:hidden flex items-center w-full">
         <NavLink to="/">
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center gap-1">
             <img className="w-6" src={logo} alt="UniCare Logo" />
             <div className="text-sm font-semibold text-red-500">UniCare</div>
           </div>
@@ -79,10 +79,10 @@ const NavbarDL: React.FC = () => {
             >
               <div className="relative h-full">
                 
-                <div className="flex flex-col justify-start items-end pt-12 pr-5 h-full">
+                <div className="flex flex-col justify-start items-end pt-12 pr-4 h-full">
                 <button 
                   onClick={toggleMenu} 
-                  className="absolute top-2 right-2 p-1 text-white bg-red-500 rounded-full"
+                  className="absolute top-2 right-4 p-1 text-white bg-red-500 rounded-full"
                 >
                   <CloseIcon />
                 </button>
