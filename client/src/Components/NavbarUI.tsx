@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/drop.png";
 import arrow from "../assets/arrow.png";
 import darrow from "../assets/darrow.png";
+import "../index.css"
 
 const MenuIcon: React.FC = () => (
   <svg
