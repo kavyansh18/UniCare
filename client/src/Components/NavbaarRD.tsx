@@ -71,7 +71,7 @@ const NavbarDL: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="fixed top-0 right-0 w-[12rem] h-[8rem] bg-white z-50 glass"
+              className="fixed top-0 right-0 w-[12rem] h-[9rem] bg-white z-50 glass"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
