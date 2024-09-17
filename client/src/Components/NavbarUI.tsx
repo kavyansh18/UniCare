@@ -78,6 +78,37 @@ const NavbarDL: React.FC = () => {
               <span>Find a donor</span>
             </button>
           </NavLink>
+          <div
+            onClick={toggleDetails}
+            className="relative pt-2 ml-1 text-center cursor-pointer"
+          >
+            <div className="flex justify-center items-center gap-1">
+              <h2 className="font-bold">Team</h2>
+              <img className="w-5 rotate-180" src={darrow} alt="" />
+            </div>
+            {showDetails && (
+              <div className="absolute top-full left-0 text-gray-700 z-10">
+                <a
+                  href="https://bento.me/kavyansh18"
+                  className="hover:underline flex justify-start items-center font-semibold"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Kavyansh
+                  <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
+                </a>
+                <a
+                  href="https://bento.me/tanay-ankulwar"
+                  className="hover:underline flex justify-start items-center font-semibold"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Tanay
+                  <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -136,37 +167,37 @@ const NavbarDL: React.FC = () => {
                     className="pt-3  text-center cursor-pointer "
                   >
                     <div className="flex justify-center items-center gap-1">
-                    <h2 className=" font-bold">Team</h2>
-                    <img className="w-5 rotate-180" src={darrow} alt="" />
+                      <h2 className=" font-bold">Team</h2>
+                      <img className="w-5 rotate-180" src={darrow} alt="" />
                     </div>
                     {showDetails && (
                       <div className="text-gray-700 mt-2">
                         <a
-                        href="https://bento.me/kavyansh18"
-                        className="hover:underline flex justify-start items-center font-semibold"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Kavyansh
-                        <img
-                          className="w-[15px] ml-1"
-                          src={arrow}
-                          alt="Arrow"
-                        />
-                      </a>
-                      <a
-                        href="https://bento.me/tanay-ankulwar"
-                        className="hover:underline flex justify-start items-center font-semibold"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Tanay
-                        <img
-                          className="w-[15px] ml-1"
-                          src={arrow}
-                          alt="Arrow"
-                        />
-                      </a>
+                          href="https://bento.me/kavyansh18"
+                          className="hover:underline flex justify-start items-center font-semibold"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Kavyansh
+                          <img
+                            className="w-[15px] ml-1"
+                            src={arrow}
+                            alt="Arrow"
+                          />
+                        </a>
+                        <a
+                          href="https://bento.me/tanay-ankulwar"
+                          className="hover:underline flex justify-start items-center font-semibold"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Tanay
+                          <img
+                            className="w-[15px] ml-1"
+                            src={arrow}
+                            alt="Arrow"
+                          />
+                        </a>
                       </div>
                     )}
                   </div>
