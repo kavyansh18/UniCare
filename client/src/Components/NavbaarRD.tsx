@@ -17,13 +17,13 @@ const CloseIcon: React.FC = () => (
   </svg>
 );
 
-const NavbarDL: React.FC = () => {
+const NavbarRD: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12">
+    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 ">
       {/* Large Screen Navbar */}
       <div className="hidden lg:flex w-full h-full justify-between items-center">
         <NavLink to="/">
@@ -82,7 +82,7 @@ const NavbarDL: React.FC = () => {
                 <div className="flex flex-col justify-start items-end pt-12 pr-4 h-full">
                 <button 
                   onClick={toggleMenu} 
-                  className="absolute top-2 right-4 p-1 text-white bg-red-500 rounded-full"
+                  className="absolute top-2 right-3 p-1 text-white bg-red-500 rounded-full"
                 >
                   <CloseIcon />
                 </button>
@@ -108,4 +108,4 @@ const NavbarDL: React.FC = () => {
   );
 };
 
-export default NavbarDL;
+export default NavbarRD;

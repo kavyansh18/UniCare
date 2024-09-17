@@ -190,7 +190,7 @@ const Donors: React.FC = () => {
       <Navbar />
       {!isLoggedIn ? (
         <div className="flex flex-col items-center justify-start mt-20 h-screen">
-          <h2 className="text-3xl mb-6">
+          <h2 className="lg:text-3xl text-2xl font-semibold mb-6 lg:px-0 px-3">
             {totalDonors > 0 ? (
               <>
                 <span>We have </span>
@@ -203,7 +203,7 @@ const Donors: React.FC = () => {
           </h2>
           <form
             onSubmit={handleLogin}
-            className="bg-white p-8 rounded-lg shadow-md w-[400px] glass"
+            className="bg-white p-8 rounded-lg shadow-md lg:w-[400px] w-[340px] glass"
           >
             <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
             <input

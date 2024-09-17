@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import swal from "sweetalert";
-import NavbarDL from "../Components/NavbaarRD";
+import NavbarRD from "../Components/NavbaarRD";
 import { motion } from "framer-motion";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
 
@@ -128,7 +128,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-b from-red-100 to-orange-200 z-30">
-      <NavbarDL />
+      <NavbarRD />
       <div className="flex justify-center h-screen items-start lg:scale-100 scale-90">
         {!showForm ? (
           <div className="flex flex-col justify-center items-center mt-20">
