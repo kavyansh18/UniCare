@@ -241,7 +241,7 @@ const UpdateInfo: React.FC = () => {
                             setUserData({ ...userData, availability: e.target.value })
                           }
                         >
-                          <option value="" disabled>Select Availability</option>
+                          <option value="" disabled>Select Willingness</option>
                           <option value="high">High</option>
                           <option value="low">Low</option>
                         </select>

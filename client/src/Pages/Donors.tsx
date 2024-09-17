@@ -125,7 +125,7 @@ const Donors: React.FC = () => {
 
   const fetchDonors = async () => {
     try {
-      const response = await fetch("http://localhost:3000/donors"); 
+      const response = await fetch("http://localhost:3000/donors");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -133,7 +133,7 @@ const Donors: React.FC = () => {
       setDonors(data);
       localStorage.setItem("totalDonors", data.length.toString());
     } catch (error) {
-      swal("Error", "Error fetching donors. Please try again later.", "error"); 
+      swal("Error", "Error fetching donors. Please try again later.", "error");
       console.error("Error fetching donors:", error);
     }
   };
@@ -145,7 +145,7 @@ const Donors: React.FC = () => {
       localStorage.setItem("isLoggedIn", "true");
       fetchDonors(); // Refetch donors on login
     } else {
-      swal("Error", "Invalid username or password", "error"); 
+      swal("Error", "Invalid username or password", "error");
     }
   };
 
@@ -173,17 +173,33 @@ const Donors: React.FC = () => {
     return a.availability === "high" ? -1 : 1;
   });
 
+  const totalDonorsString = localStorage.getItem("totalDonors");
+  const totalDonors = totalDonorsString ? parseInt(totalDonorsString, 10) : 0;
+
+  let message;
+  if (totalDonors === 0) {
+    message = "Be the first hero, register yourself now!";
+  } else if (totalDonors === 1) {
+    message = "hero ready to help!";
+  } else {
+    message = "heroes ready to help!";
+  }
+
   return (
     <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
       <Navbar />
       {!isLoggedIn ? (
         <div className="flex flex-col items-center justify-start mt-20 h-screen">
           <h2 className="text-3xl mb-6">
-            We have{" "}
-            <span className="text-red-600 font-semibold">
-              {localStorage.getItem("totalDonors") || 0}
-            </span>{" "}
-            heroes ready to help!
+            {totalDonors > 0 ? (
+              <>
+                <span>We have </span>
+              </>
+            ) : null}
+            {totalDonors === 0 ? null : (
+              <span className="text-red-600 font-semibold">{totalDonors} </span>
+            )}
+            {message}
           </h2>
           <form
             onSubmit={handleLogin}

@@ -7,14 +7,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const corsOptions = {
-  origin: 'http://localhost:5173', 
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
-
-// Middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 // PostgreSQL Pool Setup
@@ -26,7 +19,6 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-// Health Check Endpoint
 app.get('/', (req, res) => {
   res.send('Blood Donation Registration API');
 });
