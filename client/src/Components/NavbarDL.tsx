@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/drop.png';
 import arrow from '../assets/arrow.png';
+import darrow from "../assets/darrow.png";
 
 const MenuIcon: React.FC = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,6 +22,11 @@ const NavbarDL: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   return (
     <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 ">
@@ -71,7 +77,7 @@ const NavbarDL: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="fixed top-0 right-0 w-[14rem] h-[9rem] bg-white z-50 glass"
+              className="fixed top-0 right-0 w-[14rem] h-fit bg-white z-50 glass"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -79,7 +85,7 @@ const NavbarDL: React.FC = () => {
             >
               <div className="relative h-full">
                 
-                <div className="flex flex-col justify-start items-end pt-12 pr-4 h-full">
+                <div className="flex flex-col justify-start items-end pt-12 pr-4 h-full mb-2">
                 <button 
                   onClick={toggleMenu} 
                   className="absolute top-2 right-3 p-1 text-white bg-red-500 rounded-full"
@@ -98,6 +104,45 @@ const NavbarDL: React.FC = () => {
                       <span><img className='w-5' src={arrow} alt="" /></span>
                     </button>
                   </NavLink>
+                  <div
+                    onClick={toggleDetails}
+                    className="pt-3  text-center cursor-pointer "
+                  >
+                    <div className="flex justify-center items-center gap-1 pb-2">
+                    <h2 className=" font-bold">Team</h2>
+                    <img className="w-5 rotate-180" src={darrow} alt="" />
+                    </div>
+                    {showDetails && (
+                      <div className="text-gray-700 mt-2">
+                        <a
+                        href="https://bento.me/kavyansh18"
+                        className="hover:underline flex justify-start items-center font-semibold"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Kavyansh
+                        <img
+                          className="w-[15px] ml-1"
+                          src={arrow}
+                          alt="Arrow"
+                        />
+                      </a>
+                      <a
+                        href="https://bento.me/tanay-ankulwar"
+                        className="hover:underline flex justify-start items-center font-semibold"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Tanay
+                        <img
+                          className="w-[15px] ml-1"
+                          src={arrow}
+                          alt="Arrow"
+                        />
+                      </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
