@@ -11,13 +11,19 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // PostgreSQL Pool Setup
+const { Pool } = require('pg');
+
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
+  ssl: {
+    rejectUnauthorized: true, 
+  },
 });
+
 
 app.get('/', (req, res) => {
   res.send('Blood Donation Registration API');
