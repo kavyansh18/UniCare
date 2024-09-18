@@ -47,7 +47,7 @@ const UpdateInfo: React.FC = () => {
     if (email) {
       setLoading(true);
       axios
-        .get(`https://uni-care-18.vercel.app/donor?email=${email}`)
+        .get(`https://unicare.onrender.com/donor?email=${email}`)
         .then((response) => {
           setUserData(response.data);
           setLoading(false);
@@ -99,7 +99,7 @@ const UpdateInfo: React.FC = () => {
   
     setLoading(true);
     axios
-      .put(`https://uni-care-18.vercel.app/donor/update`, updatedUserData)
+      .put(`https://unicare.onrender.com/donor/update`, updatedUserData)
       .then(() => {
         Swal({
           icon: 'success',
@@ -129,7 +129,7 @@ const UpdateInfo: React.FC = () => {
         setLoading(true);
         console.log(email)
         axios
-          .delete(`https://uni-care-18.vercel.app/donor?email=${email}`) 
+          .delete(`https://unicare.onrender.com/donor?email=${email}`) 
           .then(() => {
             Swal({
               icon: 'success',

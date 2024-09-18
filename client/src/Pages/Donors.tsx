@@ -125,7 +125,7 @@ const Donors: React.FC = () => {
 
   const fetchDonors = async () => {
     try {
-      const response = await fetch("https://uni-care-18.vercel.app/donors");
+      const response = await fetch("https://unicare.onrender.com/donors");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
