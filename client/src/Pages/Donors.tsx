@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import swal from "sweetalert";
 import Navbar from "../Components/NavbarDL";
 import { IoCopy } from "react-icons/io5";
+import logout from "../assets/logout.png";
 
 interface Donor {
   id: number;
@@ -107,11 +108,13 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 
 const Donors: React.FC = () => {
   const [donors, setDonors] = useState<Donor[]>([]);
-  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(null);
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(
+    null
+  );
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
 
   const adminUsername = import.meta.env.VITE_ADMIN_USERNAME;
   const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
@@ -145,7 +148,7 @@ const Donors: React.FC = () => {
     if (username === adminUsername && password === adminPassword) {
       setIsLoggedIn(true);
       localStorage.setItem("isLoggedIn", "true");
-      fetchDonors(); // Refetch donors on login
+      fetchDonors();
     } else {
       swal("Error", "Invalid username or password", "error");
     }
@@ -252,24 +255,23 @@ const Donors: React.FC = () => {
                   {group}
                 </button>
               ))}
+              <div className="lg:flex justify-end items-center lg:ml-5 ml-2">
+                <button onClick={handleLogout}>
+                  <div className="bg-red-600 p-2 rounded-full">
+                    <img src={logout} alt="Logout" className="lg:h-8 lg:w-8 w-7 h-7" />
+                  </div>
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-end items-center lg:mr-12 mr-4">
-            <button
-              onClick={handleLogout}
-              className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md"
-            >
-              Logout
-            </button>
           </div>
 
           <div className="relative min-h-screen">
-            {loading ? ( 
-              <div className='flex space-x-2 justify-center items-start pt-44'>
-                <span className='sr-only'>Loading...</span>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce'></div>
+            {loading ? (
+              <div className="flex space-x-2 justify-center items-start pt-44">
+                <span className="sr-only">Loading...</span>
+                <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce"></div>
               </div>
             ) : sortedDonors.length ? (
               <div className="p-4 grid gap-6 lg:grid-cols-4 lg:mt-0 mt-2 justify-center items-center">
