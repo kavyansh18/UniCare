@@ -61,7 +61,7 @@ const Register: React.FC = () => {
     console.log('Form Data:', donorData);
   
     try {
-      const response = await fetch('https://dpg-crl9n5l6l47c73fuc510-a.oregon-postgres.render.com/donor/register', {
+      const response = await fetch('https://unicare.onrender.com/donor/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
