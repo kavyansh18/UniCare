@@ -106,7 +106,7 @@ const NavbarRD: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="fixed top-0 right-0 w-full max-w-md h-full z-50 bg-gray-100 shadow-xl overflow-auto"
+              className="fixed top-0 right-0 w-full max-w-md h-full z-50 bg-gray-100 shadow-xl overflow-auto glass"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
