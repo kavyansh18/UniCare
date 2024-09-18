@@ -61,7 +61,7 @@ const Register: React.FC = () => {
     console.log('Form Data:', donorData);
   
     try {
-      const response = await fetch('http://localhost:3000/donor/register', {
+      const response = await fetch('https://uni-care-18.vercel.app/donor/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
