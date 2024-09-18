@@ -255,7 +255,7 @@ const Donors: React.FC = () => {
 
           <div className="relative min-h-screen">
             {sortedDonors.length ? (
-              <div className="p-4 grid gap-6 lg:grid-cols-4">
+              <div className="p-4 grid gap-6 lg:grid-cols-4 lg:mt-0 mt-11 justify-center items-center">
                 {sortedDonors.map((donor, index) => (
                   <DonorCard key={donor.id} {...donor} index={index} />
                 ))}
@@ -271,7 +271,7 @@ const Donors: React.FC = () => {
 
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed right-20 top-20"
+            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed lg:right-20 right-3 lg:top-20 top-44"
           >
             Logout
           </button>
