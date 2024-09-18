@@ -245,6 +245,14 @@
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
+.glassnav{
+  background-color: rgba(255, 255, 255, 0.308); /* White with 20% opacity */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Shadow */
+  border-radius: 0.5rem; /* Rounded corners (8px) */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
 .card {
     background-image: linear-gradient(150deg, #ff0800 0%, #3d0eea 100%);

@@ -109,7 +109,7 @@ const NavbarRD: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="fixed top-0 right-0 w-fit pl-3  h-fit z-50 bg-white bg-opacity-20 shadow-lg backdrop-blur-md rounded-lg border border-white border-opacity-10"
+              className="fixed top-0 right-0 w-fit pl-3  h-fit z-50 glassnav"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
