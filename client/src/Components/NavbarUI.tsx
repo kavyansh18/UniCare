@@ -1,11 +1,10 @@
-// NavbarDL.tsx
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/drop.png";
 import arrow from "../assets/arrow.png";
 import darrow from "../assets/darrow.png";
-import "../index.css"
+import "../index.css";
 
 const MenuIcon: React.FC = () => (
   <svg
@@ -43,18 +42,16 @@ const CloseIcon: React.FC = () => (
   </svg>
 );
 
-const NavbarDL: React.FC = () => {
+const NavbarUI: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const [showDetails, setShowDetails] = useState(false);
-
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
 
   return (
-    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 ">
+    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12">
       {/* Large Screen Navbar */}
       <div className="hidden lg:flex w-full h-full justify-between items-center">
         <NavLink to="/">
@@ -64,8 +61,8 @@ const NavbarDL: React.FC = () => {
           </div>
         </NavLink>
 
-        <div className="text-4xl font-bold text-slate-700 ml-32">
-          Register as a donor
+        <div className="text-4xl font-bold text-slate-700 ml-[16rem]">
+          Update or Delete your Info
         </div>
 
         <div className="flex flex-row gap-2">
@@ -133,7 +130,7 @@ const NavbarDL: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="fixed top-0 right-0 w-fit pl-3  h-fit z-50 bg-white bg-opacity-20 shadow-lg backdrop-blur-md rounded-lg border border-white border-opacity-10"
+              className="fixed top-0 right-0 w-full max-w-md h-full z-50 bg-gray-100 shadow-xl overflow-auto glass"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -165,10 +162,10 @@ const NavbarDL: React.FC = () => {
                   </NavLink>
                   <div
                     onClick={toggleDetails}
-                    className="pt-3  text-center cursor-pointer "
+                    className="pt-3 text-center cursor-pointer"
                   >
-                    <div className="flex justify-center items-center gap-1">
-                      <h2 className=" font-bold">Team</h2>
+                    <div className="flex justify-center items-center gap-1 pb-2">
+                      <h2 className="font-bold">Team</h2>
                       <img className="w-5 rotate-180" src={darrow} alt="" />
                     </div>
                     {showDetails && (
@@ -212,4 +209,4 @@ const NavbarDL: React.FC = () => {
   );
 };
 
-export default NavbarDL;
+export default NavbarUI;

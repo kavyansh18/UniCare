@@ -37,7 +37,7 @@ const NavbarRD: React.FC = () => {
           </div>
         </NavLink>
 
-        <div className="text-4xl font-bold text-slate-700 ml-32">
+        <div className="text-4xl font-bold text-slate-700 ml-[18rem]">
           Register as a donor
         </div>
 
