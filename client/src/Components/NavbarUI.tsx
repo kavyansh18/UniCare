@@ -164,7 +164,7 @@ const NavbarUI: React.FC = () => {
                     onClick={toggleDetails}
                     className="pt-3 text-center cursor-pointer"
                   >
-                    <div className="flex justify-center items-center gap-1 pb-2">
+                    <div className="flex justify-center items-center gap-1">
                       <h2 className="font-bold">Team</h2>
                       <img className="w-5 rotate-180" src={darrow} alt="" />
                     </div>
