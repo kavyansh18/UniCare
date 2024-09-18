@@ -47,7 +47,7 @@ const UpdateInfo: React.FC = () => {
     if (email) {
       setLoading(true);
       axios
-        .get(`https://unicare.onrender.com/donor?email=${email}`)
+        .get(`https://dpg-crl9n5l6l47c73fuc510-a.oregon-postgres.render.com/donor?email=${email}`)
         .then((response) => {
           setUserData(response.data);
           setLoading(false);
@@ -99,7 +99,7 @@ const UpdateInfo: React.FC = () => {
   
     setLoading(true);
     axios
-      .put(`https://unicare.onrender.com/donor/update`, updatedUserData)
+      .put(`https://dpg-crl9n5l6l47c73fuc510-a.oregon-postgres.render.com/donor/update`, updatedUserData)
       .then(() => {
         Swal({
           icon: 'success',
@@ -129,7 +129,7 @@ const UpdateInfo: React.FC = () => {
         setLoading(true);
         console.log(email)
         axios
-          .delete(`https://unicare.onrender.com/donor?email=${email}`) 
+          .delete(`https://dpg-crl9n5l6l47c73fuc510-a.oregon-postgres.render.com/donor?email=${email}`) 
           .then(() => {
             Swal({
               icon: 'success',
