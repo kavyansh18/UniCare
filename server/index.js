@@ -11,8 +11,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // PostgreSQL Pool Setup
-const { Pool } = require('pg');
-
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
