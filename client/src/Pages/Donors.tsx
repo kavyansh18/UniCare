@@ -46,7 +46,7 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
       animate="visible"
       custom={index}
     >
-      <div className="card2 w-[18rem] px-6 py-4 bg-white shadow-md rounded-lg">
+      <div className="card2 w-[20rem] px-6 py-4 bg-white shadow-md rounded-lg">
         {/* Donor Details */}
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">

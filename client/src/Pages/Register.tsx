@@ -12,6 +12,7 @@ const Register: React.FC = () => {
   const [bloodGroup, setBloodGroup] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -49,6 +50,7 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true); 
   
     const donorData = {
       name,
@@ -101,8 +103,11 @@ const Register: React.FC = () => {
     } catch (error) {
       console.error('Error:', error);
       swal("Unexpected Error", "An unexpected error occurred. Please try again later.", "error");
+    } finally {
+      setLoading(false);
     }
   };
+
   const handleGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       localStorage.setItem("google-auth-token", credentialResponse.credential);
@@ -211,7 +216,7 @@ const Register: React.FC = () => {
               />
               <div className="ml-3 mt-1">
                 <div className="availability-heading mb-2 font-semibold mt-4">
-                Willingness:
+                  Willingness:
                 </div>
                 <div className="flex space-x-4">
                   <div className="checkbox-wrapper-12 flex items-center">
@@ -250,7 +255,13 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <input className="login-button" type="submit" value="Register" />
+              <input className="login-button" type="submit" value={loading ? "Registering..." : "Register"} disabled={loading} />
+              {loading && <div className='flex space-x-2 justify-center items-start pt-44'>
+                <span className='sr-only'>Loading...</span>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce'></div>
+              </div>} 
             </form>
           </motion.div>
         )}
