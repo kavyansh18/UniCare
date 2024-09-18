@@ -127,7 +127,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-red-100 to-orange-200 z-30">
+    <div className="bg-gradient-to-b from-red-100 to-orange-200">
       <NavbarRD />
       <div className="flex justify-center h-screen items-start lg:scale-100 scale-90">
         {!showForm ? (
