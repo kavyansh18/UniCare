@@ -103,7 +103,6 @@ const Register: React.FC = () => {
       swal("Unexpected Error", "An unexpected error occurred. Please try again later.", "error");
     }
   };
-  
   const handleGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       localStorage.setItem("google-auth-token", credentialResponse.credential);
