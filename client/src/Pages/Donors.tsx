@@ -107,12 +107,11 @@ const DonorCard: React.FC<Donor & { index: number }> = ({
 
 const Donors: React.FC = () => {
   const [donors, setDonors] = useState<Donor[]>([]);
-  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(
-    null
-  );
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true); 
 
   const adminUsername = import.meta.env.VITE_ADMIN_USERNAME;
   const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
@@ -124,6 +123,7 @@ const Donors: React.FC = () => {
   }, []);
 
   const fetchDonors = async () => {
+    setLoading(true); // Set loading to true
     try {
       const response = await fetch("https://unicare.onrender.com/donors");
       if (!response.ok) {
@@ -135,6 +135,8 @@ const Donors: React.FC = () => {
     } catch (error) {
       swal("Error", "Error fetching donors. Please try again later.", "error");
       console.error("Error fetching donors:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -252,18 +254,24 @@ const Donors: React.FC = () => {
               ))}
             </div>
           </div>
-              <div className="flex justify-end items-center lg:mr-12 mr-4">
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md "
-            
-          >
-            Logout
-          </button>
+          <div className="flex justify-end items-center lg:mr-12 mr-4">
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md"
+            >
+              Logout
+            </button>
           </div>
 
           <div className="relative min-h-screen">
-            {sortedDonors.length ? (
+            {loading ? ( 
+              <div className='flex space-x-2 justify-center items-start pt-44'>
+                <span className='sr-only'>Loading...</span>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce'></div>
+              </div>
+            ) : sortedDonors.length ? (
               <div className="p-4 grid gap-6 lg:grid-cols-4 lg:mt-0 mt-2 justify-center items-center">
                 {sortedDonors.map((donor, index) => (
                   <DonorCard key={donor.id} {...donor} index={index} />
