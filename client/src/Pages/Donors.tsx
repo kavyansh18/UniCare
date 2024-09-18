@@ -252,10 +252,19 @@ const Donors: React.FC = () => {
               ))}
             </div>
           </div>
+              <div className="flex justify-end items-center lg:mr-12 mr-4">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md "
+            
+          >
+            Logout
+          </button>
+          </div>
 
           <div className="relative min-h-screen">
             {sortedDonors.length ? (
-              <div className="p-4 grid gap-6 lg:grid-cols-4 lg:mt-0 mt-11 justify-center items-center">
+              <div className="p-4 grid gap-6 lg:grid-cols-4 lg:mt-0 mt-2 justify-center items-center">
                 {sortedDonors.map((donor, index) => (
                   <DonorCard key={donor.id} {...donor} index={index} />
                 ))}
@@ -268,13 +277,6 @@ const Donors: React.FC = () => {
               </div>
             )}
           </div>
-
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 text-white py-2 px-4 rounded-xl shadow-md fixed lg:right-20 right-3 lg:top-20 top-44"
-          >
-            Logout
-          </button>
         </>
       )}
     </div>
