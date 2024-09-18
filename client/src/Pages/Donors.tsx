@@ -255,10 +255,17 @@ const Donors: React.FC = () => {
                   {group}
                 </button>
               ))}
-              <div className="lg:flex justify-end items-center lg:ml-5 ml-2">
-                <button onClick={handleLogout}>
-                  <div className="bg-red-600 p-2 rounded-full">
-                    <img src={logout} alt="Logout" className="lg:h-8 lg:w-8 w-7 h-7" />
+              <div className="lg:flex justify-end items-center lg:ml-3 ml-1">
+                <button onClick={handleLogout} className="relative">
+                  <div className="bg-red-600 p-1 rounded-full flex items-center relative group">
+                    <img
+                      src={logout}
+                      alt="Logout"
+                      className="lg:h-8 lg:w-8 w-7 h-7 cursor-pointer"
+                    />
+                    <span className="absolute left-full font-semibold lg:flex hidden items-center justify-center opacity-0 group-hover:opacity-100  text-red-600 text-m rounded-2xl p-1 transition-opacity duration-300 transform translate-x-2 pointer-events-none group-hover:pointer-events-auto">
+                      Logout
+                    </span>
                   </div>
                 </button>
               </div>
