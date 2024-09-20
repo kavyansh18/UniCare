@@ -80,7 +80,7 @@ export default function App() {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-        className="relative z-10 lg:pt-12 pt-6 lg:pb-5 pb:0"
+        className="relative z-10 lg:pt-12 lg:pb-5 pb-0"
       >
         <TypewriterEffectSmooth words={words} />
       </motion.div>
