@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import { TypewriterEffectSmooth } from "./Components/TypewriterEffect";
 import drop from "./assets/drop.png";
 import { NavLink } from "react-router-dom";
-import smallScreenImg from "./assets/landing-bg-small.png"; 
+import smallScreenImg from "./assets/landing-bg-smallb.png"; 
 import largeScreenImg from "./assets/landing-bg.png";
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
   const backgroundImg = isSmallScreen ? smallScreenImg : largeScreenImg;
 
   return (
-    <div className="flex flex-col items-center justify-start lg:pt-24 pt-16 h-screen bg-gradient-to-t from-red-200 to-red-600 relative overflow-hidden">
+    <div className="flex flex-col items-center justify-start lg:pt-24 pt-12 h-screen bg-gradient-to-t from-red-200 to-red-600 relative overflow-hidden">
       <motion.div
         className="absolute inset-0"
         style={{
@@ -57,7 +57,7 @@ export default function App() {
           <img className="lg:w-[5.7rem] w-[3.4rem] mr-3" src={drop} alt="" />
         </motion.div>
         <motion.div
-          className="text-white lg:text-9xl text-6xl font-semibold"
+          className="text-white lg:text-9xl text-6xl font-semibold "
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -80,13 +80,13 @@ export default function App() {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-        className="relative z-10 lg:pt-12 pt-6 pb-5"
+        className="relative z-10 lg:pt-12 pt-6 lg:pb-5 pb:0"
       >
         <TypewriterEffectSmooth words={words} />
       </motion.div>
 
       <motion.div
-        className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4 relative z-10 lg:pt-0 pt-56"
+        className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-4 relative z-10"
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
