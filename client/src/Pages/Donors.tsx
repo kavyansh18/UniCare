@@ -129,7 +129,7 @@ const Donors: React.FC = () => {
   }, []);
 
   const fetchDonors = async () => {
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const response = await fetch("https://unicare.onrender.com/donors");
       if (!response.ok) {
