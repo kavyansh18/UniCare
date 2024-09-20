@@ -7,6 +7,9 @@ import {
   GoogleLogin,
   CredentialResponse,
 } from "@react-oauth/google";
+import { useMediaQuery } from "react-responsive";
+import smallScreenImg from "../assets/landing-bg-smallb.png";
+import largeScreenImg from "../assets/registerbg.png";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -17,6 +20,9 @@ const Register: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  const backgroundImg = isSmallScreen ? smallScreenImg : largeScreenImg;
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -168,12 +174,31 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-red-100 to-orange-200">
-      <NavbarRD />
-      <div className="flex justify-center h-screen items-start lg:scale-100 scale-90">
+    <div className="relative bg-cover bg-center min-h-screen">
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "brightness(1.05) saturate(1.1)",
+        }}
+        initial={{ scale: 1.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+      ></motion.div>
+
+      <div className="absolute inset-0 bg-black opacity-20"></div>
+      <div className="relative z-20">
+        <NavbarRD />
+      </div>
+      <div className="flex lg:justify-end justify-center h-screen items-start lg:scale-100 scale-90 lg:pr-10 pr-0">
         {!showForm ? (
-          <div className="flex flex-col justify-center items-center mt-20">
-            {/* <div>ewrew</div> */}
+          <div className="flex flex-col justify-center items-center lg:mt-32 mt-5 lg:mr-16 mr-0">
+            <div className="lg:text-[3.8rem] text-5xl font-bold text-slate-700 mb-12">
+          Register as a donor
+        </div>
             <GoogleOAuthProvider
               clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
             >

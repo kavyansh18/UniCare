@@ -33,13 +33,13 @@ const NavbarRD: React.FC = () => {
         <NavLink to="/">
           <div className="flex flex-row items-center gap-2">
             <img className="w-12" src={logo} alt="UniCare Logo" />
-            <div className="text-lg font-semibold text-red-500">UniCare</div>
+            <div className="text-lg font-semibold text-white">UniCare</div>
           </div>
         </NavLink>
 
-        <div className="text-4xl font-bold text-slate-700 ml-[18rem]">
+        {/* <div className="text-4xl font-bold text-slate-700 ml-[18rem]">
           Register as a donor
-        </div>
+        </div> */}
 
         <div className="flex flex-row gap-2">
           <NavLink to="/updateInfo">
@@ -95,9 +95,9 @@ const NavbarRD: React.FC = () => {
           </div>
         </NavLink>
 
-        <div className="ml-auto text-lg font-bold text-slate-700">
+        {/* <div className="ml-auto text-lg font-bold text-slate-700">
           Register as a donor
-        </div>
+        </div> */}
 
         <button onClick={toggleMenu} className="p-2 ml-auto">
           {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
