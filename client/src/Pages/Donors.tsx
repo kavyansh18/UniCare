@@ -220,7 +220,7 @@ const Donors: React.FC = () => {
         <Navbar />
       </div>
       {!isLoggedIn ? (
-        <div className="flex flex-col lg:items-end items-center justify-start mt-20 h-screen lg:mr-[14rem]">
+        <div className="flex flex-col lg:items-end items-center justify-start pt-28 h-screen lg:mr-[14rem]">
           <div className="flex flex-col justify-center items-center">
           <h2 className="lg:text-3xl text-2xl font-semibold mb-6 lg:px-0 px-3 z-30">
             {totalDonors > 0 ? (

@@ -27,7 +27,7 @@ const NavbarRD: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12">
+    <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 pt-4">
       {/* Large Screen Navbar */}
       <div className="hidden lg:flex w-full h-full justify-between items-center">
         <NavLink to="/">
@@ -87,11 +87,11 @@ const NavbarRD: React.FC = () => {
       </div>
 
       {/* Small Screen Navbar */}
-      <div className="lg:hidden flex items-center w-full">
+      <div className="lg:hidden flex items-center w-full ">
         <NavLink to="/">
           <div className="flex flex-row items-center gap-1">
-            <img className="w-6" src={logo} alt="UniCare Logo" />
-            <div className="text-sm font-semibold text-red-500">UniCare</div>
+            <img className="w-10" src={logo} alt="UniCare Logo" />
+            <div className="text-m font-semibold text-red-500">UniCare</div>
           </div>
         </NavLink>
 

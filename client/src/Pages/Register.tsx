@@ -197,7 +197,7 @@ const Register: React.FC = () => {
       </div>
       <div className="flex lg:justify-end justify-center h-screen items-start lg:scale-100 scale-90 lg:pr-10 pr-0">
         {!showForm ? (
-          <div className="flex flex-col justify-center items-center lg:mt-32 mt-5 lg:mr-16 mr-0">
+          <div className="flex flex-col justify-center items-center lg:pt-44 pt-5 lg:mr-16 mr-0">
             <div className="lg:text-[3.8rem] text-5xl font-bold text-slate-700 mb-12">
           Register as a donor
         </div>
