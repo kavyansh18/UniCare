@@ -33,7 +33,7 @@ const NavbarDL: React.FC = () => {
         <NavLink to="/">
           <div className="flex flex-row items-center gap-2">
             <img className="w-12" src={logo} alt="UniCare Logo" />
-            <div className="text-lg font-semibold text-red-500">UniCare</div>
+            <div className="text-lg font-semibold text-white">UniCare</div>
           </div>
         </NavLink>
 

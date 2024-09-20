@@ -4,6 +4,9 @@ import swal from "sweetalert";
 import Navbar from "../Components/NavbarDL";
 import { IoCopy } from "react-icons/io5";
 import logout from "../assets/logout.png";
+import { useMediaQuery } from "react-responsive";
+import smallScreenImg from "../assets/donor-small.png";
+import largeScreenImg from "../assets/donor.png";
 
 interface Donor {
   id: number;
@@ -190,12 +193,34 @@ const Donors: React.FC = () => {
     message = "heroes ready to help!";
   }
 
+
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  const backgroundImg = isSmallScreen ? smallScreenImg : largeScreenImg;
+
   return (
-    <div className="bg-gradient-to-b from-red-200 to-orange-200 h-auto min-h-screen">
-      <Navbar />
+    <div className="relative bg-cover bg-center min-h-screen">
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "brightness(1.05) saturate(1.1)",
+        }}
+        initial={{ scale: 1.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+      ></motion.div>
+
+      <div className="absolute inset-0 bg-black opacity-20"></div>
+      <div className="relative z-50">
+        <Navbar />
+      </div>
       {!isLoggedIn ? (
-        <div className="flex flex-col items-center justify-start mt-20 h-screen">
-          <h2 className="lg:text-3xl text-2xl font-semibold mb-6 lg:px-0 px-3">
+        <div className="flex flex-col lg:items-end items-center justify-start mt-20 h-screen lg:mr-[14rem]">
+          <div className="flex flex-col justify-center items-center">
+          <h2 className="lg:text-3xl text-2xl font-semibold mb-6 lg:px-0 px-3 z-30">
             {totalDonors > 0 ? (
               <>
                 <span>We have </span>
@@ -216,7 +241,7 @@ const Donors: React.FC = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 mb-5 border rounded-lg glass"
+              className="w-full px-4 py-2 mb-5 border rounded-lg glass placeholder-black"
               required
             />
             <input
@@ -224,7 +249,7 @@ const Donors: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mb-5 border rounded-lg glass"
+              className="w-full px-4 py-2 mb-5 border rounded-lg glass placeholder-black"
               required
             />
             <button
@@ -234,11 +259,12 @@ const Donors: React.FC = () => {
               Login
             </button>
           </form>
+          </div>
         </div>
       ) : (
         <>
           <div className="flex justify-center items-center px-4">
-            <div className="p-4 flex justify-center lg:gap-3 gap-2 flex-wrap">
+            <div className="p-4 flex justify-center lg:gap-3 gap-2 flex-wrap z-30">
               {bloodGroups.map((group) => (
                 <button
                   key={group}
