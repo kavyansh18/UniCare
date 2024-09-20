@@ -169,50 +169,52 @@ const UpdateInfo: React.FC = () => {
 
   return (
     <div className="relative bg-cover bg-center min-h-screen">
-  <motion.div
-    className="absolute inset-0"
-    style={{
-      backgroundImage: `url(${backgroundImg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      filter: "brightness(1.05) saturate(1.1)",
-    }}
-    initial={{ scale: 1.2 }}
-    animate={{ scale: 1 }}
-    transition={{ duration: 2, ease: "easeOut" }}
-  ></motion.div>
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "brightness(1.05) saturate(1.1)",
+        }}
+        initial={{ scale: 1.2 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+      ></motion.div>
 
-  <div className="absolute inset-0 bg-black opacity-20"></div>
-  
-  <div className="relative z-50">
-    <NavbarUI />
-  </div>
+      <div className="absolute inset-0 bg-black opacity-20"></div>
 
-  <div className="relative z-30 flex lg:justify-end justify-center items-center mt-10">
-    <div>
-      {!email ? (
-        <div className="flex flex-col justify-center items-center lg:mt-28 mt-5 lg:mr-16 mr-0">
-          <div className="lg:text-[3rem] text-4xl font-bold text-slate-700 mb-12 lg:px-0 px-8">
-            Update or Delete your Info
-          </div>
-          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-              text="continue_with"
-              theme="filled_blue"
-              width="100%"
-              shape="circle"
-              containerProps={{
-                style: {
-                  width: "100% !important",
-                },
-              }}
-            />
-          </GoogleOAuthProvider>
-        </div>
-      ) : (
+      <div className="relative z-50">
+        <NavbarUI />
+      </div>
+
+      <div className="relative z-30 flex lg:justify-end justify-center items-center mt-10">
+        <div>
+          {!email ? (
+            <div className="flex flex-col justify-center items-center lg:mt-28 mt-5 lg:mr-16 mr-0">
+              <div className="lg:text-[3rem] text-4xl font-bold text-slate-700 mb-12 lg:px-0 px-8">
+                Update or Delete your Info
+              </div>
+              <GoogleOAuthProvider
+                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+              >
+                <GoogleLogin
+                  onSuccess={handleGoogleLoginSuccess}
+                  onError={handleGoogleLoginError}
+                  text="continue_with"
+                  theme="filled_blue"
+                  width="100%"
+                  shape="circle"
+                  containerProps={{
+                    style: {
+                      width: "100% !important",
+                    },
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
+          ) : (
             <div className="glass p-8 lg:w-[28rem] w-[21rem] lg:mr-20 mr-0">
               <div className="flex lg:flex-row flex-col lg:gap-3 gap-2 items-center justify-center text-slate-600 ">
                 <p className="text-xl">{email}</p>
