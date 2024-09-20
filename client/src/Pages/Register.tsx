@@ -150,8 +150,18 @@ const Register: React.FC = () => {
         atob(credentialResponse.credential.split(".")[1])
       );
       const email = tokenPayload.email;
-      setUserEmail(email);
-      setShowForm(true);
+  
+      // Check if the email ends with @srmist.edu.in
+      if (email.endsWith('@srmist.edu.in')) {
+        setUserEmail(email);
+        setShowForm(true);
+      } else {
+        swal(
+          "Invalid Email Domain",
+          "Only @srmist.edu.in email addresses are allowed to log in.",
+          "error"
+        );
+      }
     } else {
       swal(
         "Authentication Failed",
@@ -160,7 +170,7 @@ const Register: React.FC = () => {
       );
     }
   };
-
+  
   const handleGoogleLoginError = () => {
     swal(
       "Authentication Failed",
@@ -168,6 +178,7 @@ const Register: React.FC = () => {
       "error"
     );
   };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("google-auth-token");
@@ -197,10 +208,11 @@ const Register: React.FC = () => {
       </div>
       <div className="flex lg:justify-end justify-center h-screen items-start lg:scale-100 scale-90 lg:pr-10 pr-0">
         {!showForm ? (
-          <div className="flex flex-col justify-center items-center lg:pt-44 pt-5 lg:mr-16 mr-0">
-            <div className="lg:text-[3.8rem] text-5xl font-bold text-slate-700 mb-12">
+          <div className="flex flex-col justify-center items-start lg:pt-44 pt-5 lg:mr-16 mr-0 lg:px-0 px-4">
+            <div className="lg:text-[3.8rem] text-5xl font-bold text-slate-700 mb-2">
           Register as a donor
         </div>
+        <div className="text-red-600 lg:text-xl text-lg mb-12 font-semibold">Use your SRM email only!</div>
             <GoogleOAuthProvider
               clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
             >

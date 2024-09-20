@@ -20,22 +20,37 @@ const UpdateInfo: React.FC = () => {
 
   const handleGoogleLoginSuccess = (response: any) => {
     console.log("Google Login Response:", response);
-
+  
+    let email;
+  
     if (response?.profileObj?.email) {
-      setEmail(response.profileObj.email);
-      localStorage.setItem("userEmail", response.profileObj.email);
+      email = response.profileObj.email;
     } else if (response?.credential) {
       const decodedToken = JSON.parse(atob(response.credential.split(".")[1]));
-      setEmail(decodedToken.email);
-      localStorage.setItem("userEmail", decodedToken.email);
+      email = decodedToken.email;
     } else {
       console.error("Failed to retrieve email from response.");
+      return; 
+    }
+  
+    // Check if the email ends with @srmist.edu.in
+    if (email.endsWith('@srmist.edu.in')) {
+      setEmail(email);
+      localStorage.setItem("userEmail", email);
+    } else {
+      console.error("Invalid email domain:", email);
+      swal(
+        "Invalid Email Domain",
+        "Only @srmist.edu.in email addresses are allowed to log in.",
+        "error"
+      );
     }
   };
-
+  
   const handleGoogleLoginError = () => {
     console.error("Login failed.");
   };
+  
 
   const handleLogout = () => {
     setEmail(null);
@@ -194,10 +209,11 @@ const UpdateInfo: React.FC = () => {
       <div className="relative z-30 flex lg:justify-end justify-center items-center mt-10">
         <div>
           {!email ? (
-            <div className="flex flex-col justify-center items-center lg:mt-28 mt-5 lg:mr-16 mr-0">
-              <div className="lg:text-[3rem] text-4xl font-bold text-slate-700 mb-12 lg:px-0 px-8">
+            <div className="flex flex-col justify-center items-start lg:mt-28 mt-5 lg:mr-16 mr-0 lg:px-0 px-8">
+              <div className="lg:text-[3rem] text-4xl font-bold text-slate-700 mb-2 ">
                 Update or Delete your Info
               </div>
+              <div className="text-red-600 lg:text-xl text-lg mb-12 font-semibold">Use your SRM email only!</div>
               <GoogleOAuthProvider
                 clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
               >
