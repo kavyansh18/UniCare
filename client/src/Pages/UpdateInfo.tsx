@@ -167,6 +167,15 @@ const UpdateInfo: React.FC = () => {
               <GoogleLogin
                 onSuccess={handleGoogleLoginSuccess}
                 onError={handleGoogleLoginError}
+                text="continue_with"
+                theme="filled_blue"
+                width="100%"
+                shape="circle"
+                containerProps={{
+                  style: {
+                    width: "100% !important",
+                  },
+                }}
               />
             ) : (
               <div className='glass p-8 lg:w-[28rem] w-[21rem]'>

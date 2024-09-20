@@ -2,7 +2,11 @@ import React, { useState, useEffect, FormEvent } from "react";
 import swal from "sweetalert";
 import NavbarRD from "../Components/NavbaarRD";
 import { motion } from "framer-motion";
-import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  CredentialResponse,
+} from "@react-oauth/google";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -12,7 +16,7 @@ const Register: React.FC = () => {
   const [bloodGroup, setBloodGroup] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -31,7 +35,7 @@ const Register: React.FC = () => {
   }, []);
 
   const handleCheckboxChange = (value: string) => {
-    setAvailability(value); 
+    setAvailability(value);
   };
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,59 +54,82 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true); 
-  
+    setLoading(true);
+
     const donorData = {
       name,
       mobile: phone,
       age: parseInt(age, 10),
       blood_group: bloodGroup,
-      availability, 
-      email: userEmail
+      availability,
+      email: userEmail,
     };
-    console.log('Form Data:', donorData);
-  
+    console.log("Form Data:", donorData);
+
     try {
-      const response = await fetch('https://unicare.onrender.com/donor/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(donorData)
-      });
-  
+      const response = await fetch(
+        "https://unicare.onrender.com/donor/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(donorData),
+        }
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
-  
+
         if (response.status === 400) {
           swal("Error", `Error: ${errorData.error}`, "error");
         } else if (response.status === 409) {
-          if (errorData.error.includes('Mobile number already registered')) {
-            swal("Conflict", "The mobile number you entered is already registered.", "warning");
-          } else if (errorData.error.includes('Email already registered')) {
-            swal("Conflict", "The email address you entered is already registered.", "warning");
+          if (errorData.error.includes("Mobile number already registered")) {
+            swal(
+              "Conflict",
+              "The mobile number you entered is already registered.",
+              "warning"
+            );
+          } else if (errorData.error.includes("Email already registered")) {
+            swal(
+              "Conflict",
+              "The email address you entered is already registered.",
+              "warning"
+            );
           } else {
-            swal("Conflict", "The provided data conflicts with existing records.", "warning");
+            swal(
+              "Conflict",
+              "The provided data conflicts with existing records.",
+              "warning"
+            );
           }
         } else {
-          swal("Conflict", "The email address you entered is already registered.", "error");
+          swal(
+            "Conflict",
+            "The email address you entered is already registered.",
+            "error"
+          );
         }
       } else {
         const result = await response.json();
         swal("Success", "Donor registered successfully!", "success");
         console.log(result.donor);
-  
+
         setName("");
         setAvailability("");
         setAge("");
         setPhone("");
         setBloodGroup("");
         setUserEmail("");
-        setShowForm(false); 
+        setShowForm(false);
       }
     } catch (error) {
-      console.error('Error:', error);
-      swal("Unexpected Error", "An unexpected error occurred. Please try again later.", "error");
+      console.error("Error:", error);
+      swal(
+        "Unexpected Error",
+        "An unexpected error occurred. Please try again later.",
+        "error"
+      );
     } finally {
       setLoading(false);
     }
@@ -111,17 +138,27 @@ const Register: React.FC = () => {
   const handleGoogleLoginSuccess = (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       localStorage.setItem("google-auth-token", credentialResponse.credential);
-      const tokenPayload = JSON.parse(atob(credentialResponse.credential.split(".")[1]));
+      const tokenPayload = JSON.parse(
+        atob(credentialResponse.credential.split(".")[1])
+      );
       const email = tokenPayload.email;
       setUserEmail(email);
       setShowForm(true);
     } else {
-      swal("Authentication Failed", "Unable to authenticate with Google. Please try again.", "error");
+      swal(
+        "Authentication Failed",
+        "Unable to authenticate with Google. Please try again.",
+        "error"
+      );
     }
   };
 
   const handleGoogleLoginError = () => {
-    swal("Authentication Failed", "Unable to authenticate with Google. Please try again.", "error");
+    swal(
+      "Authentication Failed",
+      "Unable to authenticate with Google. Please try again.",
+      "error"
+    );
   };
 
   const handleLogout = () => {
@@ -136,10 +173,22 @@ const Register: React.FC = () => {
       <div className="flex justify-center h-screen items-start lg:scale-100 scale-90">
         {!showForm ? (
           <div className="flex flex-col justify-center items-center mt-20">
-            <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+            {/* <div>ewrew</div> */}
+            <GoogleOAuthProvider
+              clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+            >
               <GoogleLogin
                 onSuccess={handleGoogleLoginSuccess}
                 onError={handleGoogleLoginError}
+                text="continue_with"
+                theme="filled_blue"
+                width="100%"
+                shape="circle"
+                containerProps={{
+                  style: {
+                    width: "100% !important",
+                  },
+                }}
               />
             </GoogleOAuthProvider>
           </div>
@@ -228,8 +277,16 @@ const Register: React.FC = () => {
                         onChange={() => handleCheckboxChange("high")}
                       />
                       <label htmlFor="checkbox-high"></label>
-                      <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
-                        <path d="M2 8.36364L6.23077 12L13 2" strokeWidth="2"></path>
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 14"
+                        height="14"
+                        width="15"
+                      >
+                        <path
+                          d="M2 8.36364L6.23077 12L13 2"
+                          strokeWidth="2"
+                        ></path>
                       </svg>
                     </div>
                     <label htmlFor="checkbox-high" className="ml-2">
@@ -245,8 +302,16 @@ const Register: React.FC = () => {
                         onChange={() => handleCheckboxChange("low")}
                       />
                       <label htmlFor="checkbox-medium"></label>
-                      <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
-                        <path d="M2 8.36364L6.23077 12L13 2" strokeWidth="2"></path>
+                      <svg
+                        fill="none"
+                        viewBox="0 0 15 14"
+                        height="14"
+                        width="15"
+                      >
+                        <path
+                          d="M2 8.36364L6.23077 12L13 2"
+                          strokeWidth="2"
+                        ></path>
                       </svg>
                     </div>
                     <label htmlFor="checkbox-medium" className="ml-2">
@@ -255,13 +320,20 @@ const Register: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <input className="login-button" type="submit" value={loading ? "Registering..." : "Register"} disabled={loading} />
-              {loading && <div className='flex space-x-2 justify-center items-start pt-44'>
-                <span className='sr-only'>Loading...</span>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-                <div className='h-6 w-6 bg-red-600 rounded-full animate-bounce'></div>
-              </div>} 
+              <input
+                className="login-button"
+                type="submit"
+                value={loading ? "Registering..." : "Register"}
+                disabled={loading}
+              />
+              {loading && (
+                <div className="flex space-x-2 justify-center items-start pt-44">
+                  <span className="sr-only">Loading...</span>
+                  <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="h-6 w-6 bg-red-600 rounded-full animate-bounce"></div>
+                </div>
+              )}
             </form>
           </motion.div>
         )}
