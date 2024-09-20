@@ -5,6 +5,8 @@ import drop from "./assets/drop.png";
 import { NavLink } from "react-router-dom";
 import smallScreenImg from "./assets/landing-bg-smallb.png"; 
 import largeScreenImg from "./assets/landing-bg.png";
+import ReactGA from 'react-ga'
+import { useEffect } from "react";
 
 export default function App() {
   const words = [
@@ -29,6 +31,9 @@ export default function App() {
 
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const backgroundImg = isSmallScreen ? smallScreenImg : largeScreenImg;
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname)
+  })
 
   return (
     <div className="flex flex-col items-center justify-start lg:pt-24 pt-12 h-screen bg-gradient-to-t from-red-200 to-red-600 relative overflow-hidden">

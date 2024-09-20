@@ -7,6 +7,7 @@ import { useMediaQuery } from "react-responsive";
 import smallScreenImg from "../assets/landing-bg-smallb.png";
 import largeScreenImg from "../assets/registerbg.png";
 import { motion } from "framer-motion";
+import ReactGA from 'react-ga'
 
 const UpdateInfo: React.FC = () => {
   const [email, setEmail] = useState<string | null>(null);
@@ -44,6 +45,7 @@ const UpdateInfo: React.FC = () => {
   };
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname)
     const savedEmail = localStorage.getItem("userEmail");
     if (savedEmail) {
       setEmail(savedEmail);

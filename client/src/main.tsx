@@ -6,7 +6,9 @@ import App from "./App";
 import Donors from "./Pages/Donors";
 import Register from "./Pages/Register";
 import UpdateInfo from "./Pages/UpdateInfo";
+import ReactGA from 'react-ga'
 
+ReactGA.initialize('G-C95XH16LSK')
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>

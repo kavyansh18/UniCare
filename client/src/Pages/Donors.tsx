@@ -7,6 +7,7 @@ import logout from "../assets/logout.png";
 import { useMediaQuery } from "react-responsive";
 import smallScreenImg from "../assets/donor-small.png";
 import largeScreenImg from "../assets/donor.png";
+import ReactGA from 'react-ga'
 
 interface Donor {
   id: number;
@@ -123,6 +124,7 @@ const Donors: React.FC = () => {
   const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname)
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
     fetchDonors();

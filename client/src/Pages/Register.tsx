@@ -10,6 +10,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import smallScreenImg from "../assets/landing-bg-smallb.png";
 import largeScreenImg from "../assets/registerbg.png";
+import ReactGA from 'react-ga'
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -25,6 +26,7 @@ const Register: React.FC = () => {
   const backgroundImg = isSmallScreen ? smallScreenImg : largeScreenImg;
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname)
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("google-auth-token");
       if (token) {
