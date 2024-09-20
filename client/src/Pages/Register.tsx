@@ -190,7 +190,7 @@ const Register: React.FC = () => {
       ></motion.div>
 
       <div className="absolute inset-0 bg-black opacity-20"></div>
-      <div className="relative z-20">
+      <div className="relative z-50">
         <NavbarRD />
       </div>
       <div className="flex lg:justify-end justify-center h-screen items-start lg:scale-100 scale-90 lg:pr-10 pr-0">

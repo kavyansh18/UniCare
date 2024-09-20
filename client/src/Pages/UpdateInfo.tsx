@@ -185,7 +185,7 @@ const UpdateInfo: React.FC = () => {
 
   <div className="absolute inset-0 bg-black opacity-20"></div>
   
-  <div className="relative z-20">
+  <div className="relative z-50">
     <NavbarUI />
   </div>
 

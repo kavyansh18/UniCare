@@ -140,7 +140,7 @@ const NavbarUI: React.FC = () => {
                 <div className="flex flex-col justify-start items-end pt-12 pr-4 h-full mb-2">
                   <button
                     onClick={toggleMenu}
-                    className="absolute top-2 right-3 p-1 text-white bg-red-500 rounded-full"
+                    className="absolute top-2 right-3 p-1 text-white bg-red-500 rounded-full z-50"
                   >
                     <CloseIcon />
                   </button>
