@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/drop.png';
 import arrow from '../assets/arrow.png';
-import darrow from "../assets/darrow.png";
+//import darrow from "../assets/darrow.png";
 import "../index.css";
 
 const MenuIcon: React.FC = () => (
@@ -21,10 +21,10 @@ const CloseIcon: React.FC = () => (
 const NavbarRD: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const [showDetails, setShowDetails] = useState(false);
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
+  // const [showDetails, setShowDetails] = useState(false);
+  // const toggleDetails = () => {
+  //   setShowDetails(!showDetails);
+  // };
 
   return (
     <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 pt-4">
@@ -52,7 +52,7 @@ const NavbarRD: React.FC = () => {
               <span>Find a donor</span>
             </button>
           </NavLink>
-          <div
+          {/* <div
             onClick={toggleDetails}
             className="relative pt-2 ml-1 text-center cursor-pointer"
           >
@@ -82,7 +82,7 @@ const NavbarRD: React.FC = () => {
               </a>
             </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -132,7 +132,7 @@ const NavbarRD: React.FC = () => {
                       <span><img className='w-5' src={arrow} alt="" /></span>
                     </button>
                   </NavLink>
-                  <div
+                  {/* <div
                     onClick={toggleDetails}
                     className="pt-3 text-center cursor-pointer"
                   >
@@ -162,7 +162,7 @@ const NavbarRD: React.FC = () => {
                       </a>
                     </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </motion.div>
