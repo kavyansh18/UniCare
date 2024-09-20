@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/drop.png';
 import arrow from '../assets/arrow.png';
-//import darrow from "../assets/darrow.png";
+import darrow from "../assets/darrow.png";
 import "../index.css";
 
 const MenuIcon: React.FC = () => (
@@ -21,10 +21,10 @@ const CloseIcon: React.FC = () => (
 const NavbarRD: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  // const [showDetails, setShowDetails] = useState(false);
-  // const toggleDetails = () => {
-  //   setShowDetails(!showDetails);
-  // };
+  const [showDetails, setShowDetails] = useState(false);
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   return (
     <div className="w-full h-full px-2 py-2 flex justify-between items-center lg:px-12 pt-4">
@@ -52,7 +52,7 @@ const NavbarRD: React.FC = () => {
               <span>Find a donor</span>
             </button>
           </NavLink>
-          {/* <div
+          <div
             onClick={toggleDetails}
             className="relative pt-2 ml-1 text-center cursor-pointer"
           >
@@ -61,14 +61,14 @@ const NavbarRD: React.FC = () => {
               <img className="w-5 rotate-180" src={darrow} alt="" />
             </div>
             {showDetails && (
-              <div className="absolute top-full -left-[5.5rem] text-gray-600 z-10 text-sm lg:mt-2 glass py-2 px-5">
+              <div className="absolute top-full -left-7 text-gray-600 z-10 text-sm lg:mt-2 glass py-2 px-5">
               <a
                 href="https://bento.me/kavyansh18"
                 className="hover:underline flex justify-start items-center font-semibold mb-1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className='text-black'>Kavyansh</span>(Developer)
+                <span className='text-black'>Kavyansh</span>
                 <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
               </a>
               <a
@@ -77,12 +77,12 @@ const NavbarRD: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className='text-black'>Tanay</span>(Marketing)
+                <span className='text-black'>Tanay</span>
                 <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
               </a>
             </div>
             )}
-          </div> */}
+          </div>
         </div>
       </div>
 
@@ -132,7 +132,7 @@ const NavbarRD: React.FC = () => {
                       <span><img className='w-5' src={arrow} alt="" /></span>
                     </button>
                   </NavLink>
-                  {/* <div
+                  <div
                     onClick={toggleDetails}
                     className="pt-3 text-center cursor-pointer"
                   >
@@ -148,7 +148,7 @@ const NavbarRD: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span className='text-black'>Kavyansh</span>(Developer)
+                        <span className='text-black'>Kavyansh</span>
                         <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
                       </a>
                       <a
@@ -157,12 +157,12 @@ const NavbarRD: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span className='text-black'>Tanay</span>(Marketing)
+                        <span className='text-black'>Tanay</span>
                         <img className="w-[15px] ml-1" src={arrow} alt="Arrow" />
                       </a>
                     </div>
                     )}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </motion.div>
